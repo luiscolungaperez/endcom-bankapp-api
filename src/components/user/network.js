@@ -4,7 +4,7 @@ const checkMail = require('../../middleware/users');
 const userController = require('./controller');
 const response = require('../../utils/response');
 
-const registerAccount = async (req, res, next) => {
+const registerAccount = async (req, res) => {
   const userData = req.body;
 
   try {
@@ -15,12 +15,26 @@ const registerAccount = async (req, res, next) => {
       "name": data.name,
       "mail": data.mail
     };
-    response.success(req, res, 'Cuenta creada', 201, info);
+    response.success(req, res, 'Account created', 201, info);
   } catch (error) {
     response.failed(req, res, 'Internal server', 500, error);
   }
 }
 
-router.post('/', checkMail, registerAccount);
+const addBalance = async (req, res) => {
+  const userBalance = req.body;
+  try {
+    const data = await userController.addBalance(userBalance);
+    const info = {
+      "balance": data + userBalance.balance
+    };
+    response.success(req, res, 'Updated balance', 200, info);
+  } catch (error) {
+    response.failed(req, res, 'Internal server', 500, error);
+  }
+};
+
+router.post('/create-account', checkMail, registerAccount);
+router.put('/account', addBalance);
 
 module.exports = router;

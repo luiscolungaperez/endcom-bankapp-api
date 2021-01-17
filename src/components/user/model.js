@@ -10,7 +10,11 @@ const userModel = new Schema({
     required: true
   },
   mail: { type: String, required: true },
-  account: { type: String, required: true, maxlength: 11 },
+  account: { 
+    type: String, 
+    required: true, 
+    maxlength: 11
+  },
   balance: { type: Number, default: 1000 },
 });
 

@@ -16,6 +16,7 @@ const connect = async () => {
     await mongoose.connect(
       mongoUri, {
         useNewUrlParser: true,
+        useCreateIndex: true,
         useUnifiedTopology: true,
         w: 'majority'
     });
