@@ -1,22 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const checkMail = require('../../middleware/users');
+const userController = require('./controller');
 const response = require('../../utils/response');
 
-router.get('/', (req, res) => {
-  console.log(req.headers);
-  res.header({
-    'custom-header': "Nuestro valor"
-  });
-  response.success(req, res, 'Lista de mensajes');
-});
+const registerAccount = async (req, res, next) => {
+  const userData = req.body;
 
-router.post('/', (req, res) => {
-  console.log(req.query);
-  if (req.query.error == 'ok') {
-    response.failed(req, res, 'Error inesperado', 500, 'Es solo una simulaci{on de fallo');
-  } else {
-    response.success(req, res, 'Creado correctamente', 201);
+  try {
+    const data = await userController.registerUser(userData);
+    const info = {
+      "id": data._id,
+      "account": data.account,
+      "name": data.name,
+      "mail": data.mail
+    };
+    response.success(req, res, 'Cuenta creada', 201, info);
+  } catch (error) {
+    response.failed(req, res, 'Internal server', 500, error);
   }
-})
+}
+
+router.post('/', checkMail, registerAccount);
 
 module.exports = router;
