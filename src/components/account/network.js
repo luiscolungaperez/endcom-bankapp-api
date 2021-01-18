@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const checkMail = require('../../middleware/users');
+const checkMail = require('../../middleware/checkEmail');
 const userController = require('./controller');
 const response = require('../../utils/response');
 

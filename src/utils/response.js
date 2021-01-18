@@ -9,6 +9,7 @@ exports.success = (req, res, message, status, data) => {
 exports.failed = (req, res, message, status, details) => {
   console.error(`[response error]: ${details}`);
   res.status(status || 500).send({
-    error: message
+    statusCode: status,
+    message: message
   })
 };

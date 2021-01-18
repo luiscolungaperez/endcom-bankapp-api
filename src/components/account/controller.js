@@ -1,10 +1,9 @@
-// const jwt = require('jsonwebtoken');
-const User = require('./model');
+const Account = require('./model');
 const { zfill, randomNumber} = require('../../utils/zfill');
 
 const registerUser = ( userData ) => {
   return new Promise((resolve, reject) => {
-    User.findOne({})
+    Account.findOne({})
       .sort({ _id: 'desc' })
       .then(consult => {
         !consult
@@ -13,8 +12,8 @@ const registerUser = ( userData ) => {
 
         userData.account = randomNumber() + zfill(userData._id, 3);
         
-        const user = new User(userData);
-        user.save((error, newUser) => {
+        const account = new Account(userData);
+        account.save((error, newUser) => {
           return error 
             ? reject('[Controller ERROR ]: On save, ' + error)
             : resolve(newUser);
@@ -27,14 +26,14 @@ const addBalance = ( userBalance ) => {
   return new Promise( (resolve, reject) => {
     const filter = { account: userBalance.account };
         
-    User.findOne(filter)
+    Account.findOne(filter)
       .then(async (result) => {
 
         if (!result) {
           reject('[Controller ERROR ]: On updated, ' + 'Account not exits');
         }
 
-        const accountAltered = await User.updateOne(filter, { $inc: { balance: userBalance.balance }});
+        const accountAltered = await Account.updateOne(filter, { $inc: { balance: userBalance.balance }});
 
         if (accountAltered.nModified > 0) {
           resolve(result.balance);
@@ -47,7 +46,7 @@ const addBalance = ( userBalance ) => {
 
 const getAccount = ( account ) => {
   return new Promise((resolve, reject) => {
-    User.findOne({ account: account })
+    Account.findOne({ account: account })
       .then(async (result) => {
         !result
           ? reject('[Controller ERROR]: Get account ' + 'Not found')
