@@ -35,7 +35,30 @@ const newMovement = ( dataMovement ) => {
   });
 };
 
+const getMovements = ( userAccount ) => {
+  return new Promise(async (resolve, reject) => {
+    let newArray = [];
+    const data = await Movement.find({ account: userAccount });
+    data.map(item => {
+      newArray = [
+        ...newArray,
+        {
+          "id": item._id,
+          "movementCode:": item.movementCode,
+          "description": item.description,
+          "amount": item.amount,
+          "createDate": item.createDate
+        }
+      ]
+    });
+
+    !data
+      ? reject('[Controller EROR]: Account not found')
+      : resolve(newArray);
+  })
+}
 
 module.exports = {
-  newMovement
+  newMovement,
+  getMovements
 };
