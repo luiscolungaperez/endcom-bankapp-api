@@ -8,11 +8,7 @@ const cfg = {
     port: parseInt(`${process.env.DB_PORT}`, 10) || 27017,
     user: process.env.DB_USER || 'admin',
     database: process.env.DB_NAME || 'endcom-bank-api',
-    password: process.env.DB_PASS || 'Kriboy21'
-  },
-  jwt: {
-    SECRET_TOKEN: process.env.SECRET_TOKEN || 'ecomtest',
-    options: { algorithm: 'HS256' }
+    password: process.env.DB_PASS || 'TKWF1uDabrKQ0Mx4'
   }
 }
 
