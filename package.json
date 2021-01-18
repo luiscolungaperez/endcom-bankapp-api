@@ -4,8 +4,8 @@
   "description": "technical test for backend developer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js"
   },
   "author": "Luis Alberto Colunga Perez",
   "license": "ISC",
@@ -22,5 +22,14 @@
   "devDependencies": {
     "eslint": "^7.18.0",
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiscolungaperez/endcom-bankapp-api.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/luiscolungaperez/endcom-bankapp-api/issues"
+  },
+  "homepage": "https://github.com/luiscolungaperez/endcom-bankapp-api#readme"
 }
