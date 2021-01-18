@@ -18,6 +18,4 @@ const userModel = new Schema({
   balance: { type: Number, default: 1000 },
 });
 
-
-
 module.exports = mongoose.model('user-accounts', userModel);

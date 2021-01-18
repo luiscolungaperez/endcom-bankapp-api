@@ -34,7 +34,25 @@ const addBalance = async (req, res) => {
   }
 };
 
+const getAccount = async (req, res) => {
+  const account = req.params.account;
+  try {
+    const data = await userController.getAccount(account);
+    const info = {
+      id: data._id,
+      account: data.account,
+      balance: data.balance,
+      name: data.name,
+      mail: data.mail
+    };
+    response.success(req, res, 'Account info', 200, info);
+  } catch (error) {
+    response.failed(req, res, 'Internal server', 500, error);
+  }
+}
+
 router.post('/create-account', checkMail, registerAccount);
 router.put('/account', addBalance);
+router.get('/account/:account', getAccount);
 
 module.exports = router;
